@@ -1,0 +1,10 @@
+#!/bin/bash
+
+branchPath=$(git symbolic-ref -q HEAD) #Somthing like refs/heads/myBranchName
+branchName=${branchPath##*/}      #Get text behind the last / of the branch path
+firstLine=$(head -n1 $1)
+
+# Check that this is not an amend by checking that the first line is empty
+if [ -z "$firstLine"  ] ;then
+    sed -i '~' "1s/^/$branchName: /" $1
+fi
