@@ -6,5 +6,6 @@ firstLine=$(head -n1 $1)
 
 # Check that this is not an amend by checking that the first line is empty
 if [ -z "$firstLine"  ] ;then
-    sed -i '~' "1s/^/$branchName: /" $1
+  mv $1 $1\~
+  cat $1\~ | sed "1s/^/$branchName: /" > $1
 fi
